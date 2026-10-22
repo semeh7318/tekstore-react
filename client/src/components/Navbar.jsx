@@ -1,15 +1,14 @@
 import React from "react";
 import Search from "./Search";
-import { NavLink , Link } from "react-router-dom";
-const Navbar = () => {
+import { NavLink } from "react-router-dom";
+
+const Navbar = ({ search, setSearch }) => {
   return (
     <div className="nav">
       <NavLink to="/" className="logo">
         TEK STORE
       </NavLink>
-      <Search />
-
-
+      <Search search={search} setSearch={setSearch} />
     </div>
   );
 };
