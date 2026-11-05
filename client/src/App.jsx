@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
+import axios from "axios";
 import Navbar from "./components/Navbar";
 import AppRoutes from "./routes/AppRoutes";
-import exempleDonneesProduits from "./data/data";
+import { API_URL, fromServer } from "./api";
 import "./App.css";
 
 const App = () => {
-  const [products, setProducts] = useState(
-    exempleDonneesProduits.map((p, i) => ({ ...p, id: String(i + 1) }))
-  );
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(API_URL)
+      .then((res) => setProducts(res.data.map(fromServer)))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <BrowserRouter>
